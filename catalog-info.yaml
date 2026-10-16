@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: pytest
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-id: pytest
+    sonarqube.org/project-key: pytest
+    github.com/project-slug: jk7testorg/pytest
+    jenkins.io/job-full-name: jk7test/pytest/main
+    argocd/app-name: pytest-dev
+    prometheus.io/rule: "kube_pod_status_phase{pod=~'pytest.*'}|phase,kube_pod_container_status_restarts_total{pod=~'pytest.*'}|container"
+    prometheus.io/alert: "KubePodCrashLooping,KubeDeploymentReplicasMismatch,KubePodNotReady,KubeContainerWaiting,KubeContainerOOMKilled,KubeDeploymentRolloutStuck"
+    prometheus.io/labels: "namespace=dev"
+    grafana/overview-dashboard: 'http://34.29.242.32/grafana/d/ffuuiuytw0f0gb/backstage-view?var-pod_prefix=pytest&var-namespace=dev&kiosk' 
+  tags:
+    - python
+    - scaffolded
+spec:
+  type: service
+  lifecycle: Dev
+  owner: user:default/madryx
+  system: dssp-platform
